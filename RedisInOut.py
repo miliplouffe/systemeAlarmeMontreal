@@ -12,6 +12,7 @@ import systemeArrosageDataClass as dc
 
 
 # ipaddressRedis='192.168.1.102'
+ipaddressRedis='192.168.1.210'
 # ipaddressRedis=''
 
 class const:
@@ -31,7 +32,7 @@ class const:
     systemeArrosageMessage = "systemeArrosageMessage"
 
 gicleurConfiguration=dict()
-redisClient = redis.StrictRedis(host="", port=6379, charset="utf-8",decode_responses=True)
+redisClient = redis.StrictRedis(host=ipaddressRedis, port=6379, charset="utf-8",decode_responses=True)
 RequeteInterface = ""
 RequeteAlarme = ""
 RequeteArrosage=""

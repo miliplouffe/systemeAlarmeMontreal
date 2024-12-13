@@ -12,11 +12,11 @@ import busio
 import digitalio
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from gpiozero import LED
+import gpiozero
 from time import sleep
 import systemeArrosageDataClass as dc
 
-led = LED(17)
+led = gpiozero.LED(17)
 led.on()
 
 
@@ -77,6 +77,11 @@ pinSensorFumeeSalleBillard = mcp.get_pin(const.pinSensorFumeeSalleBillard)
 pinEauAtelier = mcp.get_pin(const.pinEauAtelier)
 pinSensorFumeeAtelier = mcp.get_pin(const.pinSensorFumeeAtelier)
 pinSensorPluie = mcp.get_pin(const.pinSensorPluie)
+
+gicleur1 = LED(const.pinGicleur1)
+gicleur2 = LED(const.pinGicleur2)
+gicleur3 = LED(const.pinGicleur3)
+gicleur4 = LED(const.pinGicleur4)
     
 def initialiseDetecteurAlarmes():
     global pinChambrePrincipale,pinChambreSecondaire,pinBureau,pinSalon,pinSousSol
@@ -111,10 +116,7 @@ def initialiseDetecteurAlarmes():
     pinSensorPluie.pull = digitalio.Pull.UP
 
 
-gicleur1 = LED(const.pinGicleur1)
-gicleur2 = LED(const.pinGicleur2)
-gicleur3 = LED(const.pinGicleur3)
-gicleur4 = LED(const.pinGicleur4)
+ 
 
 
 def initialiseRelaisGicleur(gicleurs):

@@ -10,7 +10,6 @@ import rpiMethodesMontreal
 
 import threading
 from datetime import datetime, timedelta
-import sys, os
 from enum import Enum
 redisIpAdresse="192.168.1.210"
 redisInOut.InitialiseRedisClient(redisIpAdresse)
@@ -172,8 +171,9 @@ def decodeDataDetecteur(detecteur, **Equipement):
 
     recEquipement=EQUIPEMENT()
 
-    Equipement["MouvChambrePrincipale"].Valeur=detecteur["MouvChambrePrincipale"]
-    Equipement["MouvChambreSecondaire"].Valeur=detecteur["MouvChambreSecondaire"]
+    # Equipement["MouvChambrePrincipale"].Valeur=detecteur["MouvChambrePrincipale"]
+    # Equipement["MouvChambreSecondaire"].Valeur=detecteur["MouvChambreSecondaire"]
+    
     Equipement.MouvBureau=detecteur["MouvBureau"]
     Equipement.MouvSalon=detecteur["MouvSalon"]
     Equipement.MouvSalleBillard=detecteur["MouvSalleBillard"]
@@ -422,7 +422,7 @@ def sendSystemeAlarmeEquipement():
 
 if __name__ == '__main__':
 
-    rpiMethodesMontreal.initialiseDetecteurAlarmes()
+    # rpiMethodesMontreal.initialiseDetecteurAlarmes()
     
     Equipement = dict()
     Equipement = initialiseVariables(**Equipement)
@@ -468,10 +468,11 @@ if __name__ == '__main__':
         Requete=redisInOut.getRequeteAlarme()
 
         try:
-            print("lecture alarme passe 1")
-            Detecteur = rpiMethodesMontreal.getValeursAlarme(Detecteur)
-            print("lecture alarme passe 1   ", Detecteur)
-            Equipement = decodeDataDetecteur(Detecteur, **Equipement)
+
+            Equipement = rpiMethodesMontreal.getValeursAlarme(Equipement)
+            print (" equipement: ", Equipement)
+            Equipement = decodeDataDetecteur(Equipement, **Equipement)
+            
             Equipement = changeValeursPinsArmer(Equipement)
             redisInOut.publishSystemeAlarmeEquipement(Equipement)
         except Exception as e:
